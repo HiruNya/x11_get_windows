@@ -13,7 +13,7 @@ impl Window {
     /// 
     /// A wrapper around the [XDefaultRootWindow] function.
     pub fn default_root_window(display: &Display) -> Self {
-        let win = unsafe { XDefaultRootWindow(display.0) }
+        let win = unsafe { XDefaultRootWindow(display.0) };
         Window(win)
     }
 }
