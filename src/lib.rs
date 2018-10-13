@@ -34,13 +34,18 @@ mod atom;
 mod display;
 mod session;
 mod window;
+mod windows;
 
 pub use self::{
     atom::Atom,
     display::Display,
     session::Session,
     window::Window,
+    windows::Windows,
 };
 
 /// A struct which is used to represent that an error occured due to a Null pointer.
+#[derive(Copy, Clone, Debug)]
 pub struct Null;
+
+const NET_CLIENT_LIST: &str = "_NET_CLIENT_LIST";

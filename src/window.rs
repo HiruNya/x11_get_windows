@@ -7,7 +7,8 @@ use crate::Display;
 
 /// This struct represents a window and holds the ID of that window that can be used
 /// to query for its name.
-pub struct Window(XWindow);
+#[derive(Copy, Clone, Debug)]
+pub struct Window(pub(crate) XWindow);
 impl Window {
     /// Gets the default root window of a display.
     /// 

@@ -12,8 +12,8 @@ use crate::Display;
 /// A wrapper around a [x11::xlib::Atom].
 /// 
 /// See the [Atom::new] function for an example on how to create one.
-#[derive(Copy, Clone)]
-pub struct Atom(XAtom);
+#[derive(Copy, Clone, Debug)]
+pub struct Atom(pub(crate) XAtom);
 impl Atom {
     /// An export of [XInternAtom] that turns a CString into a Atom.
     /// 
