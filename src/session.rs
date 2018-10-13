@@ -30,8 +30,8 @@ use crate::{
 /// 
 /// This is purely for convenience.
 /// 
-/// Example:
-/// ```rs
+/// # Example
+/// ```
 /// let mut session = Session::open()
 ///    .expect("Error opening a new session.");
 /// session

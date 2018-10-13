@@ -20,7 +20,8 @@ impl Atom {
     /// An Error is only created if the CString has a null byte in it.
     /// If it does a [NulError] is returned.
     /// 
-    /// ```rs
+    /// # Example
+    /// ```
     /// Atom::new("_NET_ClIENT_LIST")
     ///     .expect("Could not create the CString");
     /// ```

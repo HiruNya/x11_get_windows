@@ -18,8 +18,8 @@
 //! so if you find a memory leak or some other problem,
 //! **Please** make an issue on the Git repo.
 //! 
-//! Example:
-//! ```rs
+//! # Example
+//! ```
 //! let mut session = Session::open()
 //!     .expect("Error opening a new session.");
 //! session
