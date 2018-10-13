@@ -1,5 +1,5 @@
 [package]
-name = "x11_get_window_names"
+name = "x11_get_windows"
 version = "0.1.0"
 authors = ["Hiruna Jayamanne <hirunav2@gmail.com>"]
 edition = "2018"
