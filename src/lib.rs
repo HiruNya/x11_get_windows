@@ -37,6 +37,7 @@
 //! If you are going to be using either a [Session] or a [Display] struct more than once,
 //! please use the same one for each time as [x11::xlib::XOpenDisplay] is used when opening,
 //! and [x11::xlib::XCloseDisplay] is used on drop.
+
 #![warn(missing_docs)]
 #![feature(dbg_macro)]
 
