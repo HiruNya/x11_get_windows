@@ -1,4 +1,4 @@
-use x11_get_window_names::*;
+use x11_get_window_names::Session;
 
 fn main() {
     let mut session = Session::open()
