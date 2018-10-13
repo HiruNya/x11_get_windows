@@ -32,10 +32,14 @@ use crate::{
 /// 
 /// Example:
 /// ```rs
-/// Session::open()
-///     .windows()
-///     .names()
-///     .for_each(|title| println!("{:?}", title));
+/// let mut session = Session::open()
+///    .expect("Error opening a new session.");
+/// session
+///    .get_windows()
+///    .expect("Could not get a list of windows.")
+///    .iter()
+///    .filter_map(|x| x.get_title(&session.display).ok())
+///    .for_each(|x| println!("{:?}", x.as_ref()))
 /// // Prints out the title for every window that is visible on the screen.
 /// ```
 pub struct Session {

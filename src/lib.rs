@@ -20,11 +20,20 @@
 //! 
 //! Example:
 //! ```rs
-//! Session::open()
-//!     .windows()
-//!     .names()
-//!     .for_each(|title| println!("{:?}", title));
-//! // Prints out the title for every window that is visible on the screen.
+//! let mut session = Session::open()
+//!     .expect("Error opening a new session.");
+//! session
+//!     .get_windows()
+//!     .expect("Could not get a list of windows.")
+//!     .iter()
+//!     .filter_map(|x| x.get_title(&session.display).ok())
+//!     .for_each(|x| println!("{:?}", x.as_ref()))
+//! // This might produce:
+//! // // "Window Title 1"
+//! // // "Window Title 2"
+//! // // ""
+//! // // "Window Title 3"
+//! // etc.
 //! ```
 //! 
 //! If you are going to be using either a [Session] or a [Display] struct more than once,
