@@ -1,10 +1,12 @@
 use x11_get_window_names::*;
 
 fn main() {
-    Session::open()
-        .expect("Error opening a new session.")
+    let mut session = Session::open()
+        .expect("Error opening a new session.");
+    session
         .get_windows()
         .expect("Could not get a list of windows.")
         .iter()
-        .for_each(|x| println!("{:?}", x))
+        .filter_map(|x| x.get_title(&session.display).ok())
+        .for_each(|x| println!("{:?}", x.as_ref()))
 }

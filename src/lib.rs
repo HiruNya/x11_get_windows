@@ -1,4 +1,5 @@
 #![warn(missing_docs)]
+#![feature(dbg_macro)]
 //! x11_get_window_names is a Rust crate that makes it easier to query the x11 windowing sytsem
 //! to get the names of windows running on the computer.
 //! 
