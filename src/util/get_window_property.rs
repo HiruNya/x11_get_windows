@@ -20,7 +20,7 @@ use crate::{
 };
 
 /// An export of [XGetWindowProperty].
-/// Make sure to [xlib::x11::XFree] the pointer, when you're done with it.
+/// Make sure to [x11::xlib::XFree] the pointer, when you're done with it.
 /// 
 /// An example of how to handle the response can be found in the [GetWindowPropertyResponse] docs.
 pub unsafe fn get_window_property(
