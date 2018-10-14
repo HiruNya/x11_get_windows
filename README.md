@@ -1,6 +1,6 @@
 # x11_get_windows
 
-x11_get_window_names is a Rust crate that makes it easier to query the x11 windowing sytsem
+x11_get_windows is a Rust crate that makes it easier to query the x11 windowing sytsem
 to get the names of windows running on the computer.
 
 This is done by querying the _NET_CLIENT_LIST property for the list of windows
