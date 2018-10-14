@@ -13,7 +13,7 @@ use crate::Display;
 /// 
 /// See the [Atom::new] function for an example on how to create one.
 #[derive(Copy, Clone, Debug)]
-pub struct Atom(pub(crate) XAtom);
+pub struct Atom(pub XAtom);
 impl Atom {
     /// An export of [XInternAtom] that turns a CString into a Atom.
     /// 

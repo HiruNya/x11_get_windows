@@ -19,9 +19,10 @@ use std::{
 };
 use crate::{
     Atom,
-    NET_CLIENT_LIST,
-    Null,
     Display,
+    NET_CLIENT_LIST,
+    NotSupported,
+    Null,
     Window,
     Windows,
 };
@@ -47,7 +48,10 @@ pub struct Session {
     pub display: Display,
     /// The root window of the display.
     pub root_window: Option<Window>,
-    client_list_atom: Option<Atom>,
+    /// The atom that represents the client_list property.
+    pub client_list_atom: Option<Atom>,
+    /// The atom that represents the active_window property.
+    pub active_window_atom: Option<Atom>,
 }
 impl Session {
     /// Opens a display.
@@ -56,6 +60,7 @@ impl Session {
             display: Display::open()?,
             root_window: None,
             client_list_atom: None,
+            active_window_atom: None,
         } )
     }
     /// Creates a session from an already opened Display connection.
@@ -66,6 +71,7 @@ impl Session {
             display,
             root_window: None,
             client_list_atom: None,
+            active_window_atom: None,
         }
     }
     /// Gets all the current windows on the screen.
@@ -75,9 +81,9 @@ impl Session {
     /// This can possible produce a [NotSupported] error.
     /// In that case, please read the documentation for that struct.
     pub fn get_windows(&mut self) -> Result<Windows, NotSupported> {
-        let Session{ display, root_window, client_list_atom } = self;
+        let Session{ display, root_window, client_list_atom, .. } = self;
         let root = root_window.get_or_insert_with(|| Window::default_root_window(&display));
-        let atom = client_list_atom.get_or_insert(Atom::new(&display, NET_CLIENT_LIST).unwrap());
+        let atom = client_list_atom.get_or_insert_with(|| Atom::new(&display, NET_CLIENT_LIST).unwrap());
         
         let mut return_type: XAtom = unsafe { uninitialized() };
         let mut return_format: c_int = unsafe { uninitialized() };
@@ -129,21 +135,8 @@ impl Session {
         }
         Err(NotSupported)
     }
+    /// Gets the currently active window in the display.
+    pub fn active_window(&mut self) -> Result<Window, NotSupported> {
+        Window::active_window(self)
+    }
 }
-
-/// A struct that represents an error where the ``_NET_ClIENT_LIST`` property
-/// was not found in the root window.
-/// 
-/// This error can be caused by using Desktop Environments that does not support
-/// the above convention.
-/// The WMCTRL tool's source code that I used as a reference to make this crate
-/// checked for another property, if the first one didn't work,
-/// but as I had no need for it I didn't implement it.
-/// But if there is a need for it I should have no problem implementing that as well.
-/// 
-/// Another possible source of this error was that the size of the item was not expected.
-/// 
-/// If this error happens please make an issue on the GitHub repo,
-/// giving the OS; architecture; and/or desktop environment; of your computer.
-#[derive(Copy, Clone, Debug)]
-pub struct NotSupported;

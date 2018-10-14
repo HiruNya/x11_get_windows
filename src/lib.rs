@@ -46,6 +46,8 @@ mod display;
 mod session;
 mod window;
 mod windows;
+/// Just some helpful functions if you require more functionality than this wrapper.
+pub mod util;
 
 pub use self::{
     atom::Atom,
@@ -59,4 +61,23 @@ pub use self::{
 #[derive(Copy, Clone, Debug)]
 pub struct Null;
 
+/// A struct that represents an error where the ``_NET_ClIENT_LIST`` property
+/// was not found in the root window.
+/// 
+/// This error can be caused by using Desktop Environments that does not support
+/// the above convention.
+/// The WMCTRL tool's source code that I used as a reference to make this crate
+/// checked for another property, if the first one didn't work,
+/// but as I had no need for it I didn't implement it.
+/// But if there is a need for it I should have no problem implementing that as well.
+/// 
+/// Another possible source of this error was that the size of the item was not expected.
+/// 
+/// If this error happens please make an issue on the GitHub repo,
+/// giving the OS; architecture; and/or desktop environment; of your computer.
+#[derive(Copy, Clone, Debug)]
+pub struct NotSupported;
+
 const NET_CLIENT_LIST: &str = "_NET_CLIENT_LIST";
+
+const NET_ACTIVE_WINDOW: &str = "_NET_ACTIVE_WINDOW";
