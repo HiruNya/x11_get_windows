@@ -1,6 +1,8 @@
 //! x11_get_windows is a Rust crate that makes it easier to query the x11 windowing sytsem
 //! to get the names of windows running on the computer.
 //! 
+//! [Link to online docs.](https://hirunya.github.io/docs/x11_get_windows/x11_get_windows/)
+//! 
 //! This is done by querying the _NET_CLIENT_LIST property for the list of windows
 //! and _NET_ACTIVE_WINDOW for the current active window.
 //! This seems to be a part of what is known as the
