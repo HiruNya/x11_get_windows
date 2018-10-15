@@ -32,7 +32,7 @@ use crate::{
 /// This is purely for convenience.
 /// 
 /// # Example
-/// ```
+/// ```ignore
 /// let mut session = Session::open()
 ///    .expect("Error opening a new session.");
 /// session

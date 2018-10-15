@@ -23,7 +23,7 @@
 //! 
 //! # Examples
 //! Getting a list of all the window titles on the screen.
-//! ```
+//! ```ignore
 //! let mut session = Session::open()
 //!     .expect("Error opening a new session.");
 //! session
@@ -40,7 +40,7 @@
 //! // etc.
 //! ```
 //! Get the currently active window, and find its title
-//! ```
+//! ```ignore
 //! let mut session = Session::open()
 //!     .expect("Could not open a new session.");
 //! println!("{:?}",

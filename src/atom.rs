@@ -21,7 +21,7 @@ impl Atom {
     /// If it does a [NulError] is returned.
     /// 
     /// # Example
-    /// ```
+    /// ```ignore
     /// Atom::new("_NET_ClIENT_LIST")
     ///     .expect("Could not create the CString");
     /// ```

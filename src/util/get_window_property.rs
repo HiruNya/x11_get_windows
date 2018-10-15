@@ -66,7 +66,7 @@ pub unsafe fn get_window_property(
 /// **NOTE:** Remember to use XFree on the pointer.
 /// 
 /// # Example:
-/// ```
+/// ```ignore
 /// let response: GetWindowPropertyResponse = get_window_property(...);
 /// if response.actual_format_return == 8 {
 ///     slice::from_raw_parts(response.proper_return as *const u8, response.nitems_return as usize)
