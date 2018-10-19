@@ -97,18 +97,3 @@ pub struct NotSupported;
 const NET_CLIENT_LIST: &str = "_NET_CLIENT_LIST";
 
 const NET_ACTIVE_WINDOW: &str = "_NET_ACTIVE_WINDOW";
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn test_memory_basic() {
-        let mut session = super::Session::open()
-            .expect("Error opening a new session.");
-        session
-            .get_windows()
-            .expect("Could not get a list of windows.")
-            .iter()
-            .filter_map(|x| x.get_title(&session.display).ok())
-            .for_each(|x| println!("{:?}", x.as_ref()))
-    }
-}
