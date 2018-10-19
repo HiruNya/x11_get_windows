@@ -8,7 +8,6 @@ use x11::xlib::{
 };
 use std::{
     ffi::CStr,
-    mem::uninitialized,
     ops::Drop,
     os::raw::c_void,
     ptr::null_mut,
@@ -76,9 +75,9 @@ impl Window {
     pub fn get_title(&self, display: &Display) -> Result<WindowTitle, Null> {
         let mut text_property = XTextProperty {
             value: null_mut(),
-            encoding: unsafe { uninitialized() },
-            format: unsafe { uninitialized() },
-            nitems: unsafe { uninitialized() },
+            encoding: 0,
+            format: 0,
+            nitems: 0,
         };
         unsafe { 
             XGetWMName(
