@@ -4,7 +4,6 @@ use x11::xlib::{
     XGetWindowProperty,
 };
 use std::{
-    mem::uninitialized,
     os::raw::{
         c_int,
         c_uchar,
@@ -29,11 +28,7 @@ pub unsafe fn get_window_property(
     property: Atom,
     expected_type: XAtom
 ) -> Result<GetWindowPropertyResponse, NotSupported> {
-    let mut actual_type_return: XAtom = uninitialized();
-    let mut actual_format_return: c_int = uninitialized();
-    let mut nitems_return: c_ulong = uninitialized();
-    let mut bytes_after_return: c_ulong = uninitialized();
-    let mut proper_return: *mut c_uchar = null_mut();
+    let mut response = GetWindowPropertyResponse::default();
 
     if XGetWindowProperty(
         display.0,
@@ -42,19 +37,13 @@ pub unsafe fn get_window_property(
         0, 4096 / 4,
         XFalse,
         expected_type,
-        &mut actual_type_return,
-        &mut actual_format_return,
-        &mut nitems_return,
-        &mut bytes_after_return,
-        &mut proper_return
+        &mut response.actual_type_return,
+        &mut response.actual_format_return,
+        &mut response.nitems_return,
+        &mut response.bytes_after_return,
+        &mut response.proper_return
     ) == 0 {
-        return Ok(GetWindowPropertyResponse{
-            actual_type_return,
-            actual_format_return,
-            nitems_return,
-            bytes_after_return,
-            proper_return,
-        })
+        return Ok(response)
     }
     Err(NotSupported)
 }
@@ -89,5 +78,16 @@ pub struct GetWindowPropertyResponse {
     /// This crate ignores this field.
     pub bytes_after_return: c_ulong,
     /// The pointer that is returned.
-    pub proper_return: *const c_uchar,
+    pub proper_return: *mut c_uchar,
+}
+impl Default for GetWindowPropertyResponse {
+    fn default() -> Self {
+        Self {
+            actual_type_return: 0,
+            actual_format_return: 0,
+            nitems_return: 0,
+            bytes_after_return: 0,
+            proper_return: null_mut(),
+        }
+    }
 }
