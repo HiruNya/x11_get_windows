@@ -24,7 +24,7 @@ use crate::{
 /// An example of how to handle the response can be found in the [GetWindowPropertyResponse] docs.
 pub unsafe fn get_window_property(
     display: &Display,
-    window: &Window,
+    window: Window,
     property: Atom,
     expected_type: XAtom
 ) -> Result<GetWindowPropertyResponse, NotSupported> {

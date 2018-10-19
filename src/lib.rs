@@ -60,8 +60,11 @@
 //! * [RustDocs: x11::xlib](https://docs.rs/x11/2.18.1/x11/xlib/index.html)
 //! 
 
-#![warn(missing_docs)]
 #![feature(dbg_macro)]
+#![feature(tool_lints)]
+#![warn(clippy::all)]
+#![warn(missing_docs)]
+#![allow(clippy::cast_lossless, clippy::cast_ptr_alignment)]
 
 mod atom;
 mod display;

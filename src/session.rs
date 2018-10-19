@@ -83,9 +83,9 @@ impl Session {
             actual_type_return: return_type,
             actual_format_return: return_format,
             nitems_return: return_nitems,
-            bytes_after_return: _,
             proper_return: return_proper,
-        } = unsafe { get_window_property(display, root, *atom, XA_WINDOW)? };
+            ..
+        } = unsafe { get_window_property(display, *root, *atom, XA_WINDOW)? };
         if return_type == XA_WINDOW {
             let windows = match return_format {
                     8 => {
