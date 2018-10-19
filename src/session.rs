@@ -1,20 +1,10 @@
 use x11::xlib::{
-    Atom as XAtom,
-    False as XFalse,
     Window as XWindow,
     XA_WINDOW,
     XFree,
-    XGetWindowProperty,
 };
 use std::{
-    mem::uninitialized,
-    os::raw::{
-        c_int,
-        c_uchar,
-        c_ulong,
-        c_void,
-    },
-    ptr::null_mut,
+    os::raw::c_void,
     slice,
 };
 use crate::{
@@ -23,6 +13,10 @@ use crate::{
     NET_CLIENT_LIST,
     NotSupported,
     Null,
+    util::{
+        get_window_property,
+        GetWindowPropertyResponse,
+    },
     Window,
     Windows,
 };
@@ -85,26 +79,15 @@ impl Session {
         let root = root_window.get_or_insert_with(|| Window::default_root_window(&display));
         let atom = client_list_atom.get_or_insert_with(|| Atom::new(&display, NET_CLIENT_LIST).unwrap());
         
-        let mut return_type: XAtom = unsafe { uninitialized() };
-        let mut return_format: c_int = unsafe { uninitialized() };
-        let mut return_nitems: c_ulong = unsafe { uninitialized() };
-        let mut return_bytes_after: c_ulong = unsafe { uninitialized() };
-        let mut return_proper: *mut c_uchar = null_mut();
-        if unsafe { XGetWindowProperty(
-            self.display.0,
-            root.0,
-            atom.0,
-            0, 4096 / 4,
-            XFalse,
-            XA_WINDOW,
-            &mut return_type,
-            &mut return_format,
-            &mut return_nitems,
-            &mut return_bytes_after,
-            &mut return_proper
-        ) } == 0 {
-            if return_type == XA_WINDOW {
-                return Ok(match return_format {
+        let GetWindowPropertyResponse{
+            actual_type_return: return_type,
+            actual_format_return: return_format,
+            nitems_return: return_nitems,
+            bytes_after_return: _,
+            proper_return: return_proper,
+        } = unsafe { get_window_property(display, root, *atom, XA_WINDOW)? };
+        if return_type == XA_WINDOW {
+            let windows = match return_format {
                     8 => {
                         let array = unsafe{slice::from_raw_parts(return_proper as *mut u8, return_nitems as usize)}
                             .iter()
@@ -129,10 +112,14 @@ impl Session {
                         unsafe { XFree(return_proper as *mut c_void) };
                         Windows(array)
                     },
-                    _ => return Err(NotSupported),
-                })
-            }
-        }
+                    _ => {
+                        unsafe { XFree(return_proper as *mut c_void) };
+                        return Err(NotSupported)
+                    },
+            };
+            return Ok(windows)
+        }  else { unsafe { XFree(return_proper as *mut c_void) }; }
+
         Err(NotSupported)
     }
     /// Gets the currently active window in the display.
