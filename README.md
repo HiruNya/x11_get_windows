@@ -55,3 +55,9 @@ println!("{:?}",
 If you are going to be using either a [Session] or a [Display] struct more than once,
 please use the same one for each time as [x11::xlib::XOpenDisplay] is used when opening,
 and [x11::xlib::XCloseDisplay] is used on drop.
+
+Here are some possibly helpful links that I used when making this crate and might be helpful if you want to go past the small functionality of this crate:
+* [Xlib - C Language X Interface](https://www.x.org/releases/X11R7.7/doc/libX11/libX11/libX11.html#Obtaining_and_Changing_Window_Properties)
+* [StackOverflow X11: List top level windows](https://stackoverflow.com/questions/37359063/x11-list-top-level-windows)
+* [RustDocs: x11::xlib](https://docs.rs/x11/2.18.1/x11/xlib/index.html)
+
