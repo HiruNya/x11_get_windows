@@ -3,8 +3,8 @@
 //! 
 //! [Link to online docs.](https://hirunya.github.io/docs/x11_get_windows/x11_get_windows/)
 //! 
-//! This is done by querying the _NET_CLIENT_LIST property for the list of windows
-//! and _NET_ACTIVE_WINDOW for the current active window.
+//! This is done by querying the `_NET_CLIENT_LIST` property for the list of windows
+//! and `_NET_ACTIVE_WINDOW` for the current active window.
 //! This seems to be a part of what is known as the
 //! ["Extended Window Manager Hints"/"NetWM" standard.](https://en.wikipedia.org/wiki/Extended_Window_Manager_Hints)
 //! However your Desktop Environment may not follow this convention and therefore
@@ -54,6 +54,7 @@
 //! please use the same one for each time as [x11::xlib::XOpenDisplay] is used when opening,
 //! and [x11::xlib::XCloseDisplay] is used on drop.
 //! 
+//! # Links:
 //! Here are some possibly helpful links that I used when making this crate and might be helpful if you want to go past the small functionality of this crate:
 //! * [Xlib - C Language X Interface](https://www.x.org/releases/X11R7.7/doc/libX11/libX11/libX11.html#Obtaining_and_Changing_Window_Properties)
 //! * [StackOverflow X11: List top level windows](https://stackoverflow.com/questions/37359063/x11-list-top-level-windows)
