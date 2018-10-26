@@ -26,9 +26,8 @@ impl Atom {
     ///     .expect("Could not create the CString");
     /// ```
     pub fn new<T: Into<Vec<u8>>>(display: &Display, text: T) -> Result<Self, NulError> {
-        let text = CString::new(text)?.into_raw(); // ToDo: Is the CString remove after it is used?
-        let atom = unsafe { XInternAtom(display.0, text, XTrue) };
-        unsafe{ CString::from_raw(text) };
+        let text = CString::new(text)?;
+        let atom = unsafe { XInternAtom(display.0, text.as_ptr(), XTrue) };
         Ok(Atom(atom))
     }
 }
