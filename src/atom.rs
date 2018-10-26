@@ -15,9 +15,9 @@ use crate::Display;
 #[derive(Copy, Clone, Debug)]
 pub struct Atom(pub XAtom);
 impl Atom {
-    /// An export of [XInternAtom] that turns a CString into a Atom.
+    /// An export of [XInternAtom] that turns a [CString] into a Atom.
     /// 
-    /// An Error is only created if the CString has a null byte in it.
+    /// An Error is only created if the [CString] has a null byte in it.
     /// If it does a [NulError] is returned.
     /// 
     /// # Example
