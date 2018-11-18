@@ -62,7 +62,6 @@
 //! 
 
 #![feature(dbg_macro)]
-#![feature(tool_lints)]
 #![warn(clippy::all)]
 #![warn(missing_docs)]
 #![allow(clippy::cast_lossless, clippy::cast_ptr_alignment)]
