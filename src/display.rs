@@ -24,6 +24,18 @@ impl Display {
         }
         Ok(Display(x_display))
     }
+    /// Consumes the safe wrapper and returns a pointer to the raw Display.
+    /// 
+    /// Use this if you want to get more out of the display that this crate cannot provide.
+    pub unsafe fn into_raw(self) -> *mut XDisplay {
+        self.0
+    }
+    /// Wraps a raw display pointer with a safe wrapper.
+    /// 
+    /// Ensure that this pointer is the only pointer as the connection is closed when this struct is dropped.
+    pub unsafe fn from_raw(display: *mut XDisplay) -> Self {
+        Display(display)
+    }
 }
 impl Drop for Display {
     fn drop(&mut self) {
